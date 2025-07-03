@@ -1,4 +1,4 @@
-import type { Service } from "@/components/services/Service";
+import type { ServiceRequest } from "@/components/serviceRequest/interface"
 
 const url = 'http://localhost:8000';
 
@@ -32,39 +32,17 @@ const handleApiResponse = async (response: Response) => {
   return response;
 };
 
-// GET all services
-export const getServices = async (): Promise<Service[]> => {
-  const response = await fetch(`${url}/services`);
+// GET all servicerequests
+export const getServiceRequests = async (): Promise<ServiceRequest[]> => {
+  const response = await fetch(`${url}/service-requests`);
   await handleApiResponse(response);
   const json = await response.json();
-  return json.data;
+  return Array.isArray(json.data) ? json.data : [];
 };
 
-// PATCH update service
-export const updateService = async (id: string, data: Partial<Service>): Promise<Service> => {
-  const response = await fetch(`${url}/services/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  await handleApiResponse(response);
-  return response.json();
-};
-
-// DELETE service
-export const deleteService = async (id: string): Promise<{ success: boolean }> => {
-  const response = await fetch(`${url}/services/${id}`, {
-    method: 'DELETE',
-  });
-  await handleApiResponse(response);
-  return { success: response.ok };
-};
-
-// POST create service
-export const createService = async (data: Partial<Service>): Promise<Service> => {
-  const response = await fetch(`${url}/services`, {
+// POST create service request
+export const createServiceRequest = async (data: Partial<ServiceRequest>): Promise<ServiceRequest> => {
+  const response = await fetch(`${url}/service-requests`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

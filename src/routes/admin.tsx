@@ -4,9 +4,8 @@ import { AdminSidebar } from '@/components/Admin/Sidebar'
 export const Route = createFileRoute('/admin')({
   component: RouteComponent,
 })
-
 function RouteComponent() {
- return (
+  return (
     <div className="flex min-h-screen">
       <AdminSidebar />
       <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-900">
@@ -15,3 +14,4 @@ function RouteComponent() {
     </div>
   )
 }
+

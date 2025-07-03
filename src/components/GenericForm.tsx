@@ -34,7 +34,7 @@ export function GenericForm<T extends ZodObject<any>>({
   fieldClassName,
   inputClassName,
   buttonClassName,
-  
+
 }: GenericFormProps<T>) {
   const defaultValues = Object.fromEntries(
     Object.keys(schema.shape).map((key) => [
@@ -81,7 +81,7 @@ export function GenericForm<T extends ZodObject<any>>({
           }}
           children={(f) => (
             <div>
-              <label className={ field.inputClassName || "block text-sm font-medium text-gray-700 mb-1"}>
+              <label className={field.inputClassName || "block text-sm font-medium text-gray-700 mb-1"}>
                 {field.label}
               </label>
 
@@ -104,11 +104,10 @@ export function GenericForm<T extends ZodObject<any>>({
                   value={f.state.value}
                   onBlur={f.handleBlur}
                   onChange={(e) => f.handleChange(e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md ${
-                    f.state.meta.errors.length > 0
+                  className={`w-full px-3 py-2 border rounded-md ${f.state.meta.errors.length > 0
                       ? "border-red-500"
                       : "border-gray-300"
-                  }`}
+                    }`}
                   placeholder={field.placeholder}
                 />
               )}
@@ -129,11 +128,10 @@ export function GenericForm<T extends ZodObject<any>>({
           <button
             type="submit"
             disabled={!canSubmit}
-            className={`w-full py-2 px-4 rounded-md ${
-              canSubmit
+            className={`w-full py-2 px-4 rounded-md ${canSubmit
                 ? "bg-blue-600 text-white"
                 : "bg-gray-400 text-gray-200 cursor-not-allowed"
-            }`}
+              }`}
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>

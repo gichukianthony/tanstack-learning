@@ -36,5 +36,6 @@ const handleApiResponse = async (response: Response) => {
 export const getFeedbacks = async (): Promise<Feedback[]> => {
   const response = await fetch(`${url}/feedbacks`);
   await handleApiResponse(response);
-  return response.json();
+  const json =await response.json();
+  return json.data;
 };

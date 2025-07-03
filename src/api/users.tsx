@@ -4,11 +4,11 @@ const url = 'http://localhost:8000';
 
 // Type for update operations (FormData without password + id)
 export type UpdateUsersData = {
-    name?: string;
-    email?: string;
-    role?: 'user' | 'admin' | 'superadmin' | 'mechanic';
-    phone?: string;
-    address?: string;
+  name?: string;
+  email?: string;
+  role?: 'user' | 'admin' | 'superadmin' | 'mechanic';
+  phone?: string;
+  address?: string;
 };
 
 // Helper function to handle API responses and errors
@@ -44,4 +44,26 @@ export const getUsers = async (): Promise<User[]> => {
   const response = await fetch(`${url}/users`);
   await handleApiResponse(response);
   return response.json();
+};
+
+// PATCH update user
+export const updateUser = async (id: string, data: UpdateUsersData): Promise<User> => {
+  const response = await fetch(`${url}/users/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  await handleApiResponse(response);
+  return response.json();
+};
+
+// DELETE user
+export const deleteUser = async (id: string): Promise<{ success: boolean }> => {
+  const response = await fetch(`${url}/users/${id}`, {
+    method: 'DELETE',
+  });
+  await handleApiResponse(response);
+  return { success: response.ok };
 };

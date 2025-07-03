@@ -9,18 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UserRouteImport } from './routes/user'
+import { Route as MechanicRouteImport } from './routes/mechanic'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UserIndexRouteImport } from './routes/user/index'
+import { Route as MechanicIndexRouteImport } from './routes/mechanic/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as UserMechanicRouteImport } from './routes/user/mechanic'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo.table'
 import { Route as DemoStoreRouteImport } from './routes/demo.store'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AdminUserRouteImport } from './routes/admin/user'
+import { Route as AdminServiceRequestRouteImport } from './routes/admin/service-request'
 import { Route as AdminServiceRouteImport } from './routes/admin/service'
 import { Route as AdminMechanicRouteImport } from './routes/admin/mechanic'
+import { Route as AdminFeedbackRouteImport } from './routes/admin/feedback'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
 
+const UserRoute = UserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MechanicRoute = MechanicRouteImport.update({
+  id: '/mechanic',
+  path: '/mechanic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -31,10 +49,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserIndexRoute = UserIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserRoute,
+} as any)
+const MechanicIndexRoute = MechanicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MechanicRoute,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const UserMechanicRoute = UserMechanicRouteImport.update({
+  id: '/mechanic',
+  path: '/mechanic',
+  getParentRoute: () => UserRoute,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
@@ -51,9 +84,19 @@ const DemoStoreRoute = DemoStoreRouteImport.update({
   path: '/demo/store',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUserRoute = AdminUserRouteImport.update({
   id: '/user',
   path: '/user',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServiceRequestRoute = AdminServiceRequestRouteImport.update({
+  id: '/service-request',
+  path: '/service-request',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminServiceRoute = AdminServiceRouteImport.update({
@@ -64,6 +107,11 @@ const AdminServiceRoute = AdminServiceRouteImport.update({
 const AdminMechanicRoute = AdminMechanicRouteImport.update({
   id: '/mechanic',
   path: '/mechanic',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFeedbackRoute = AdminFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
   getParentRoute: () => AdminRoute,
 } as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
@@ -80,25 +128,39 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/mechanic': typeof MechanicRouteWithChildren
+  '/user': typeof UserRouteWithChildren
+  '/admin/feedback': typeof AdminFeedbackRoute
   '/admin/mechanic': typeof AdminMechanicRoute
   '/admin/service': typeof AdminServiceRoute
+  '/admin/service-request': typeof AdminServiceRequestRoute
   '/admin/user': typeof AdminUserRoute
+  '/auth/login': typeof AuthLoginRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/user/mechanic': typeof UserMechanicRoute
   '/admin/': typeof AdminIndexRoute
+  '/mechanic/': typeof MechanicIndexRoute
+  '/user/': typeof UserIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/feedback': typeof AdminFeedbackRoute
   '/admin/mechanic': typeof AdminMechanicRoute
   '/admin/service': typeof AdminServiceRoute
+  '/admin/service-request': typeof AdminServiceRequestRoute
   '/admin/user': typeof AdminUserRoute
+  '/auth/login': typeof AuthLoginRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/user/mechanic': typeof UserMechanicRoute
   '/admin': typeof AdminIndexRoute
+  '/mechanic': typeof MechanicIndexRoute
+  '/user': typeof UserIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -106,13 +168,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/mechanic': typeof MechanicRouteWithChildren
+  '/user': typeof UserRouteWithChildren
+  '/admin/feedback': typeof AdminFeedbackRoute
   '/admin/mechanic': typeof AdminMechanicRoute
   '/admin/service': typeof AdminServiceRoute
+  '/admin/service-request': typeof AdminServiceRequestRoute
   '/admin/user': typeof AdminUserRoute
+  '/auth/login': typeof AuthLoginRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/user/mechanic': typeof UserMechanicRoute
   '/admin/': typeof AdminIndexRoute
+  '/mechanic/': typeof MechanicIndexRoute
+  '/user/': typeof UserIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -121,38 +191,60 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/mechanic'
+    | '/user'
+    | '/admin/feedback'
     | '/admin/mechanic'
     | '/admin/service'
+    | '/admin/service-request'
     | '/admin/user'
+    | '/auth/login'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/user/mechanic'
     | '/admin/'
+    | '/mechanic/'
+    | '/user/'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin/feedback'
     | '/admin/mechanic'
     | '/admin/service'
+    | '/admin/service-request'
     | '/admin/user'
+    | '/auth/login'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/user/mechanic'
     | '/admin'
+    | '/mechanic'
+    | '/user'
     | '/demo/form/address'
     | '/demo/form/simple'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/mechanic'
+    | '/user'
+    | '/admin/feedback'
     | '/admin/mechanic'
     | '/admin/service'
+    | '/admin/service-request'
     | '/admin/user'
+    | '/auth/login'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/user/mechanic'
     | '/admin/'
+    | '/mechanic/'
+    | '/user/'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesById: FileRoutesById
@@ -160,6 +252,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  MechanicRoute: typeof MechanicRouteWithChildren
+  UserRoute: typeof UserRouteWithChildren
+  AuthLoginRoute: typeof AuthLoginRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -169,6 +264,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mechanic': {
+      id: '/mechanic'
+      path: '/mechanic'
+      fullPath: '/mechanic'
+      preLoaderRoute: typeof MechanicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -183,12 +292,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user/': {
+      id: '/user/'
+      path: '/'
+      fullPath: '/user/'
+      preLoaderRoute: typeof UserIndexRouteImport
+      parentRoute: typeof UserRoute
+    }
+    '/mechanic/': {
+      id: '/mechanic/'
+      path: '/'
+      fullPath: '/mechanic/'
+      preLoaderRoute: typeof MechanicIndexRouteImport
+      parentRoute: typeof MechanicRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/user/mechanic': {
+      id: '/user/mechanic'
+      path: '/mechanic'
+      fullPath: '/user/mechanic'
+      preLoaderRoute: typeof UserMechanicRouteImport
+      parentRoute: typeof UserRoute
     }
     '/demo/tanstack-query': {
       id: '/demo/tanstack-query'
@@ -211,11 +341,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoStoreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/user': {
       id: '/admin/user'
       path: '/user'
       fullPath: '/admin/user'
       preLoaderRoute: typeof AdminUserRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/service-request': {
+      id: '/admin/service-request'
+      path: '/service-request'
+      fullPath: '/admin/service-request'
+      preLoaderRoute: typeof AdminServiceRequestRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/service': {
@@ -230,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/mechanic'
       fullPath: '/admin/mechanic'
       preLoaderRoute: typeof AdminMechanicRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/feedback': {
+      id: '/admin/feedback'
+      path: '/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AdminFeedbackRouteImport
       parentRoute: typeof AdminRoute
     }
     '/demo/form/simple': {
@@ -250,24 +401,55 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminFeedbackRoute: typeof AdminFeedbackRoute
   AdminMechanicRoute: typeof AdminMechanicRoute
   AdminServiceRoute: typeof AdminServiceRoute
+  AdminServiceRequestRoute: typeof AdminServiceRequestRoute
   AdminUserRoute: typeof AdminUserRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminFeedbackRoute: AdminFeedbackRoute,
   AdminMechanicRoute: AdminMechanicRoute,
   AdminServiceRoute: AdminServiceRoute,
+  AdminServiceRequestRoute: AdminServiceRequestRoute,
   AdminUserRoute: AdminUserRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface MechanicRouteChildren {
+  MechanicIndexRoute: typeof MechanicIndexRoute
+}
+
+const MechanicRouteChildren: MechanicRouteChildren = {
+  MechanicIndexRoute: MechanicIndexRoute,
+}
+
+const MechanicRouteWithChildren = MechanicRoute._addFileChildren(
+  MechanicRouteChildren,
+)
+
+interface UserRouteChildren {
+  UserMechanicRoute: typeof UserMechanicRoute
+  UserIndexRoute: typeof UserIndexRoute
+}
+
+const UserRouteChildren: UserRouteChildren = {
+  UserMechanicRoute: UserMechanicRoute,
+  UserIndexRoute: UserIndexRoute,
+}
+
+const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  MechanicRoute: MechanicRouteWithChildren,
+  UserRoute: UserRouteWithChildren,
+  AuthLoginRoute: AuthLoginRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,

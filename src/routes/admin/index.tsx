@@ -8,11 +8,12 @@ import {
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 import { UseMonitoring } from "@/hooks/monitoring";
+import { authActions } from '@/stores/authStore';
+import { useLogin } from '../../hooks/useLogin';
 
 export const Route = createFileRoute('/admin/')({
   component: RouteComponent,
 })
-
 const COLORS = ["#3b82f6", "#22c55e", "#f59e42", "#a78bfa"];
 
 function RouteComponent() {
@@ -96,7 +97,7 @@ function RouteComponent() {
                 fill="#8884d8"
                 label
               >
-                {chartData.map((entry, index) => (
+                {chartData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
